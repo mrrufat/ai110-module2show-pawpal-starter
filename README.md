@@ -65,19 +65,29 @@ Today's Schedule:
 
 ## 🧪 Testing PawPal+
 
+Run the full automated test suite with:
+
 ```bash
-# Run the full test suite:
-pytest
-
-# Run with coverage:
-pytest --cov
+python -m pytest
 ```
 
-Sample test output:
+These tests cover the core PawPal+ scheduler behaviors, including sorting tasks by time, filtering tasks by pet/completion status, creating the next recurring instance for daily and weekly tasks, detecting time-slot conflicts, and handling edge cases such as a pet with no tasks.
 
+Sample test output from a successful run:
+
+```text
+============================= test session starts ==============================
+platform darwin -- Python 3.13.13, pytest-9.0.3, pluggy-1.6.0
+rootdir: /Users/rufatmusayev/Desktop/CodePath/ai110-module1show-gameglitchinvestigator-starter/ai110-module2show-pawpal-starter
+plugins: anyio-4.13.0
+collected 7 items
+
+tests/test_pawpal.py .......                                             [100%]
+
+============================== 7 passed in 0.02s ===============================
 ```
-# Paste your pytest output here
-```
+
+Confidence Level: ★★★★★ (7/7 tests passing)
 
 ## 📐 Smarter Scheduling
 

@@ -35,6 +35,18 @@ def test_scheduler_sorts_tasks_by_time():
     assert [task.description for task in ordered] == ["Feed", "Walk", "Brush"]
 
 
+def test_scheduler_handles_pet_with_no_tasks():
+    owner = Owner(name="Jordan", contact_info="jordan@example.com")
+    pet = Pet(name="Mochi", breed="Shiba Inu", age=3)
+    owner.add_pet(pet)
+
+    scheduler = Scheduler(owner)
+
+    assert scheduler.get_pending_tasks() == []
+    assert scheduler.sort_by_time() == []
+    assert scheduler.detect_conflicts() == []
+
+
 def test_scheduler_filters_tasks_by_pet_and_status():
     owner = Owner(name="Jordan", contact_info="jordan@example.com")
     mochi = Pet(name="Mochi", breed="Shiba Inu", age=3)
