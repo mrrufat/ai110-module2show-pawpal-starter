@@ -1,0 +1,43 @@
+classDiagram
+    class Owner {
+        +String name
+        +String contactInfo
+        +String preferredStartTime
+        +String preferredEndTime
+        +addPet()
+        +manageTasks()
+        +generateDailyPlan()
+    }
+
+    class Pet {
+        +String name
+        +String breed
+        +Int age
+        +String specialNeeds
+        +getAssignedTasks()
+        +getDailySchedule()
+    }
+
+    class Task {
+        +String name
+        +Int duration
+        +String priority
+        +String timeConstraints
+        +create()
+        +edit()
+        +delete()
+    }
+
+    class Schedule {
+        +String date
+        +List orderedTasks
+        +Int totalDuration
+        +String reasoning
+        +generateFromTasks()
+        +displayPlan()
+        +reorderByPriority()
+    }
+
+    Owner "1" --> "1..*" Pet : owns
+    Pet "1" --> "*" Task : assigned
+    Schedule "1" --> "*" Task : includes
