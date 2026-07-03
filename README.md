@@ -89,25 +89,52 @@ tests/test_pawpal.py .......                                             [100%]
 
 Confidence Level: ★★★★★ (7/7 tests passing)
 
-## 📐 Smarter Scheduling
+## ✨ Features
 
-The scheduler now supports a few lightweight but practical scheduling features that make the CLI demo more useful.
+PawPal+ now supports a small but practical set of scheduling features that make the app feel useful to a pet owner:
 
-| Feature | Method | Notes |
-|---------|--------|-------|
-| Sorting by time | `Scheduler.sort_by_time()` | Orders tasks from earliest to latest using their `HH:MM` time values. |
-| Filtering by pet or completion status | `Scheduler.filter_tasks()` | Lets the app focus on a specific pet or show only pending/completed tasks. |
-| Conflict detection | `Scheduler.detect_conflicts()` | Emits a warning when two pending tasks share the same time slot. |
-| Recurring tasks | `Scheduler.mark_task_complete()` | When a daily or weekly task is completed, a new task is created for the next occurrence. |
+- Pet and owner management through the Streamlit interface
+- Task creation with a time, frequency, and completion status
+- Sorting by time so the daily plan is shown in chronological order
+- Filtering by pet name or completion status for focused views
+- Conflict warnings when two pending tasks share the same time slot
+- Daily and weekly recurrence that creates the next task after completion
 
-## 📸 Demo Walkthrough
+## 🎬 Demo Walkthrough
 
-Describe your app in numbered steps so a reader can follow along without watching a video:
+The UI is designed to help a pet owner move from setup to a usable schedule in a few simple steps:
 
-1. <!-- Describe this step -->
-2. <!-- Describe this step -->
-3. <!-- Describe this step -->
-4. <!-- Describe this step -->
-5. <!-- Add more steps as needed -->
+1. Add one or more pets from the main form, including their basic information.
+2. Add care tasks for each pet, such as feeding, walks, grooming, or vet visits, using a time and frequency.
+3. Generate the schedule to view all tasks sorted from earliest to latest.
+4. Review the pending-task list and any conflict warnings when two tasks overlap at the same time.
+5. Mark a recurring task complete and see a new follow-up task appear for the next day or week.
 
-**Screenshot or video** *(optional)*: <!-- Insert a screenshot or link to a demo video here -->
+Example workflow:
+
+- Add a pet named Mochi
+- Schedule a morning walk at 08:00 and a feeding task at 08:30
+- Generate the schedule to see the tasks organized chronologically
+- Notice a warning if another task also uses 08:00
+- Mark a daily task complete to create the next occurrence automatically
+
+Sample CLI output from running `python3 main.py`:
+
+```text
+Today's Schedule:
+  08:00 — Morning walk (Mochi) [daily]
+  08:00 — Grooming (Biscuit) [weekly]
+  08:30 — Feeding (Mochi) [daily]
+  14:00 — Vet checkup (Biscuit) [monthly]
+
+Pending tasks for Mochi:
+  - Morning walk at 08:00
+  - Feeding at 08:30
+
+Conflicts:
+  - Conflict: Morning walk (Mochi) and Grooming (Biscuit) both occur at 08:00.
+
+Completing the morning walk creates the next occurrence:
+  - Completed: Morning walk
+  - Next task: Morning walk due 2026-07-04
+```
