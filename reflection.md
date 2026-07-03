@@ -57,6 +57,8 @@ When writing the full implementation, the design changed further:
 - Describe one tradeoff your scheduler makes.
 - Why is that tradeoff reasonable for this scenario?
 
+One tradeoff is that the scheduler only checks for exact time matches when detecting conflicts, rather than trying to reason about overlapping durations or time windows. That is reasonable for this starter version because it keeps the logic simple, readable, and fast while still catching the most obvious scheduling problems such as two tasks assigned to the same time slot.
+
 ---
 
 ## 3. AI Collaboration

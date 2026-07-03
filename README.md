@@ -81,14 +81,14 @@ Sample test output:
 
 ## 📐 Smarter Scheduling
 
-> Fill in once you've implemented scheduling logic.
+The scheduler now supports a few lightweight but practical scheduling features that make the CLI demo more useful.
 
-| Feature | Method(s) | Notes |
-|---------|-----------|-------|
-| Task sorting | | e.g., by priority, duration |
-| Filtering | | e.g., skip tasks if time runs out |
-| Conflict handling | | e.g., overlapping time slots |
-| Recurring tasks | | e.g., daily vs. weekly |
+| Feature | Method | Notes |
+|---------|--------|-------|
+| Sorting by time | `Scheduler.sort_by_time()` | Orders tasks from earliest to latest using their `HH:MM` time values. |
+| Filtering by pet or completion status | `Scheduler.filter_tasks()` | Lets the app focus on a specific pet or show only pending/completed tasks. |
+| Conflict detection | `Scheduler.detect_conflicts()` | Emits a warning when two pending tasks share the same time slot. |
+| Recurring tasks | `Scheduler.mark_task_complete()` | When a daily or weekly task is completed, a new task is created for the next occurrence. |
 
 ## 📸 Demo Walkthrough
 
