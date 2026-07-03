@@ -54,6 +54,15 @@ Paste a sample of your app's CLI or Streamlit output here so a reader can see wh
 #   ...
 ```
 
+Actual output from running `python3 main.py`:
+
+```
+Today's Schedule:
+  08:00 — Morning walk (Mochi) [daily]
+  08:30 — Feeding (Mochi) [daily]
+  14:00 — Vet checkup (Biscuit) [monthly]
+```
+
 ## 🧪 Testing PawPal+
 
 ```bash

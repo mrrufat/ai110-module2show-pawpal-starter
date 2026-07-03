@@ -13,11 +13,34 @@ PawPal+ should let a user perform three core actions:
 - Briefly describe your initial UML design.
 - What classes did you include, and what responsibilities did you assign to each?
 
+My initial UML has four independent classes:
+
+- **Owner** — holds the pet owner's basic info (name, contact info) and scheduling preferences (preferred start/end time for the day). Responsible for adding pets and kicking off task management and daily plan generation.
+- **Pet** — holds basic info about the animal (name, breed, age, special needs). Responsible for exposing the tasks assigned to it and its resulting daily schedule.
+- **Task** — represents a single care activity (name, duration, priority, optional time constraints). Responsible for its own create/edit/delete lifecycle.
+- **Schedule** — represents a day's plan: a date, an ordered list of tasks, total duration, and the reasoning behind the plan. Responsible for building itself from a set of tasks, reordering by priority, and displaying the final plan.
+
+The relationships are: an Owner owns one or more Pets, a Pet has many Tasks assigned to it, and a Schedule includes many Tasks for a given day.
+
 
 
 **b. Design changes**
 
 - Did your design change during implementation?
+- If yes, describe at least one change and why you made it.
+
+Yes. An AI review of `pawpal_system.py` against the UML flagged that the classes had no way to reference each other, even though the diagram implies they should:
+
+- Added a `pet` field on `Task` so each task can point back to the `Pet` it belongs to (the UML only showed `Pet -> Task`, not the reverse, which made it impossible to tell which pet a standalone task belonged to).
+- Added a `tasks` field and an `owner` field on `Pet`, so a pet can list its own tasks and be traced back to its owner.
+- Added a `pet` field on `Schedule`, so a generated schedule can be tied to the specific pet (and, through it, the owner) it was built for.
+- Decided that `Schedule.generate_from_tasks()` should be the single place the scheduling algorithm lives, with `Owner.generate_daily_plan()` simply delegating to it once implemented — this avoids duplicating scheduling logic in two places.
+
+When writing the full implementation, the design changed further:
+
+- Renamed `Schedule` to `Scheduler` and reframed it as the "brain" of the system: instead of just holding one day's ordered task list, `Scheduler` now takes an `Owner` and actively retrieves and organizes tasks across all of that owner's pets (`get_all_tasks`, `get_pending_tasks`, `get_tasks_by_pet`, `organize_by_time`). This matched the real responsibility better — the class does the organizing, it isn't just a data container for the result.
+- Changed `Task`'s fields from `name, duration, priority, time_constraints` to `description, time, frequency, is_completed`. This shifted the model from a priority/duration-based scheduling task to a recurring-care-task model (e.g., "feed cat" every "daily" at "08:00"), with an explicit completion flag instead of relying on `Schedule` to track what's been done.
+- `Owner` dropped `preferred_start_time`/`preferred_end_time` since time-window constraints are no longer part of the simplified `Task` model, and gained `get_all_tasks()` to aggregate tasks across its pets directly.
 - If yes, describe at least one change and why you made it.
 
 ---
